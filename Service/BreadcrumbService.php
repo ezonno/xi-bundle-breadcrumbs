@@ -100,11 +100,15 @@ class BreadcrumbService
      */
     public function createBreadcrumbs($name, array $params = array())
     {
+        $route = null;
         if (array_key_exists('_locale', $params)) {
-            $name = $name .'.'. $params['_locale'];
+            $route = $this->getRoute($params['_locale'].'__RG__'.$name);
+        }
+        else
+        {
+            $route = $this->getRoute($name);
         }
 
-        $route = $this->getRoute($name);
         $parents = $this->getParents($name);
         $breadcrumbs = array();
 
@@ -163,9 +167,6 @@ class BreadcrumbService
         $route = $this->getRoute($name);
         if ($route && $route->hasDefault('parent')) {
             $parent = $route->getDefault('parent');
-            if ($route->hasDefault('_locale')) {
-                $parent .= '.' . $route->getDefault('_locale');
-            }
             return ($this->getRoute($parent) ? $parent : null);
         } else {
             return null;
@@ -299,7 +300,7 @@ class BreadcrumbService
 
     private function localizeName($name, $locale = null)
     {
-        return ($locale or $locale = Locale::getDefault()) ? $name .'.'. $locale : $name;
+        return ($locale or $locale = Locale::getDefault()) ? $locale.'__RG__'.$name  : $name;
     }
 
     private function getHash($route, $params)
