@@ -3,6 +3,9 @@ xi-bundle-breadcrumbs
 
 A Breadcrumbs bundle for Symfony2.
 
+This bundle is based on the xi-bundle-breadcrumbs bundle only modified to work with jms/i18n-routing-bundle internationalized routing.
+These modifications do work in my own projects, but I'm not sure if this is the way xi and jms intended to.
+
 This is different from other breadcrumb bundles, because it utilizes routes  
 as a tree to build the breadcrumbs in order to not pollute the controller  
 actions with repetitive breadcrumbs code.
